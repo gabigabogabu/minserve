@@ -8,7 +8,7 @@ I'm open to:
 - add explicit parsing for special headers such as cookies, auth or others
 
 ## Dependencies
-- node >=14
+- node >=18
 
 ## TODO
 0. https
