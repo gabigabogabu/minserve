@@ -12,7 +12,6 @@ I'm open to:
 
 ## TODO
 0. https
-1. examples
 2. websockets?
 
 ## Usage
