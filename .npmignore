@@ -1,0 +1,7 @@
+.vscode
+coverage
+examples
+node_modules
+src
+jest.config.js
+tsconfig.json
