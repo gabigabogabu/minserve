@@ -13,14 +13,10 @@ export type RequestErrorHandler = (error: Error) => MinserveResponse | Promise<M
  * @param {RequestHandler} param.requestHandler function to be called for every request.
  * @param {RequestErrorHandler} param.errorHandler function to be called for every error.
  * If not provided, a default error handler will be used,
- * which logs the error to the console and returns a 500 status code
- * @param {Function} param.serverErrorHandler function to be called when the server fails to start.
- * If not provided, a default error handler will be used, which logs the error to the console.
- * @param {Function} param.serverCloseHandler function to be called when the server closes.
- * If not provided, a default handler will be used, which logs to the console.
- * @param {Object} param.serverConfig configuration object to be passed to the https.createServer function.
- * If https is not available, this parameter is ignored.
- * @returns if available, an https server, otherwise an http server
+ * which logs the error to the console and returns a 500 status code.
+ * @param {http.Server} param.server an http server to use.
+ * If not provided, a new vanilla server will be created.
+ * @returns {http.Server} an http server
  */
 export const minserve = ({
     requestHandler,
@@ -28,17 +24,12 @@ export const minserve = ({
         console.error({ error });
         return { statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR };
     },
-    serverErrorHandler = (error) =>
-        console.error({ msg: "Failed to start server", error }),
-    serverCloseHandler = () => console.log("Server closed"),
+    server = http.createServer(),
 }: {
     requestHandler: RequestHandler;
     requestErrorHandler?: RequestErrorHandler;
-    serverErrorHandler?: (error: Error) => void | Promise<void>;
-    serverCloseHandler?: () => void;
+    server?: http.Server;
 }) => {
-    const server = http.createServer();
-
     const wrappedRequestHandler = async (
         req: IncomingMessage,
         res: ServerResponse
@@ -64,7 +55,5 @@ export const minserve = ({
     };
 
     server.on("request", wrappedRequestHandler);
-    server.on("error", serverErrorHandler);
-    server.on("close", serverCloseHandler);
     return server;
 };

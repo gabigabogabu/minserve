@@ -26,14 +26,16 @@ const server = minserve({
 
     return { statusCode: HttpStatusCode.NOT_FOUND };
   },
-  async serverErrorHandler(error) {
-    await sequelize.close();
-    console.error(error);
-  },
-  async serverCloseHandler() {
-    await sequelize.close();
-    console.log('Server closed');
-  },
+});
+
+server.on('close', async () => {
+  await sequelize.close();
+  console.log('Server closed');
+});
+
+server.on('error', async (error) => {
+  await sequelize.close();
+  console.error('Server closed', error);
 });
 
 server.listen(3000, async () => {
