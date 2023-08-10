@@ -33,9 +33,9 @@ server.on('close', async () => {
   console.log('Server closed');
 });
 
-server.on('error', async (error) => {
+server.on('error', async (error: unknown) => {
   await sequelize.close();
-  console.error('Server closed', error);
+  console.error('Server error', error);
 });
 
 server.listen(3000, async () => {
