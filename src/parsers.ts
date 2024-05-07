@@ -89,7 +89,6 @@ export const parseQueryParams = (
 };
 
 /**
- *
  * @param request MinserveRequest
  * @param pathDescription description of the path, e.g. "/users/userId"
  * @returns a record where the keys are the parts of the `pathDescription` split by `/`

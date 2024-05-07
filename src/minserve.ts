@@ -2,7 +2,8 @@ import http, { IncomingMessage, ServerResponse } from "http";
 import { HttpStatusCode } from "./HttpStatusCode";
 import { MinserveRequest } from "./MinserveRequest";
 import { MinserveResponse } from "./MinserveResponse";
-import { parseRequest, tryToReply } from "./helpers";
+import { parseRequest } from "./parseRequest";
+import { tryToReply } from "./tryToReply";
 
 export type RequestHandler = (request: MinserveRequest) => MinserveResponse | Promise<MinserveResponse>;
 export type RequestErrorHandler = (error: Error) => MinserveResponse | Promise<MinserveResponse>;
