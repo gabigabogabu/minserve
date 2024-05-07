@@ -1,5 +1,5 @@
 import { CreateRouteFn } from ".";
-import { HttpStatusCode, MinserveResponse } from "../../../../dist";
+import { HttpStatusCode, MinserveResponse } from "minserve";
 
 const createHealthRouter: CreateRouteFn = ({ sequelize }) => {
   return async (request) => {

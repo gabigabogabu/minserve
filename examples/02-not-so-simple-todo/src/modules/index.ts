@@ -3,7 +3,7 @@ import { createEchoRouter } from "./echo"
 import { createErrorRouter } from "./error"
 import { createTodoRouter } from "./todo"
 import { createHealthRouter } from "./health"
-import { HttpVerb, MinserveRequest, MinserveResponse } from "minserve"
+import { MinserveRequest, MinserveResponse } from "minserve"
 import { Sequelize } from "sequelize-typescript"
 
 export type Route = (request: MinserveRequest) => MinserveResponse | undefined | null | Promise<MinserveResponse | undefined | null | void>
